@@ -79,7 +79,7 @@ class BookManager:
 # ვალიდაციის ფუნქციები
 def validate_year(year):
     # ამოწმებს წლის ვალიდურობას
-    if year.isdigit() and int(year) > 0:
+    if year.isdigit() and int(year) > 0 and int(year)<2025:
         return int(year)  # ვალიდური წელი
     else:
         print("Invalid year! Please enter a valid positive year.")
@@ -112,14 +112,14 @@ def main():
         # მენიუს გამოტანა ეკრანზე
         print("\nMenu:")
         print("1. Add a Book")  # წიგნის დამატება
-        print("2. dalete a Book")  # წიგნის დამატება
-        print("2. View All Books")  # ყველა წიგნის ნახვა
-        print("3. Search Book by Title")  # ძიება სათაურით
-        print("4. Search Book by Author")  # ძიება ავტორით
-        print("5. Search Book by Year")  # ძიება გამოშვების წლით
-        print("6. Exit")  # პროგრამის დასრულება
+        print("2. delete a Book")  # წიგნის დამატება
+        print("3. View All Books")  # ყველა წიგნის ნახვა
+        print("4. Search Book by Title")  # ძიება სათაურით
+        print("5. Search Book by Author")  # ძიება ავტორით
+        print("6. Search Book by Year")  # ძიება გამოშვების წლით
+        print("7. Exit")  # პროგრამის დასრულება
 
-        choice = input("Enter your choice (1-6): ")  # მომხმარებლის არჩევანის შეყვანა
+        choice = input("Enter your choice (1-7): ")  # მომხმარებლის არჩევანის შეყვანა
 
         if choice == '1':
             # მონაცემების ინიცირება
@@ -176,13 +176,17 @@ def main():
         elif choice == '6':
             # ძიება წლის მიხედვით
             search_year = input("Enter the year to search for: ")
-            results = manager.search_by_year(search_year)
-            if results:
-                print("\nSearch results:")
-                for book in results:
-                    print(book)  # ნაპოვნი წიგნების ჩვენება
-            else:
-                print(f"No books found published in {search_year}.")
+            try:
+                search_year = int(search_year)  # სტრინგის ციფრად გარდაქმნა
+                results = [b for b in manager.books if b.year == search_year]
+                if results:
+                    print("\nSearch results:")
+                    for book in results:
+                        print(book)
+                else:
+                    print(f"No books found published in {search_year}.")#ნაპოვნის წიგნის ჩვენება
+            except ValueError:
+                print("Invalid year input. Please enter a valid number.")
 
         elif choice == '7':
             # პროგრამის დასრულება
@@ -191,7 +195,7 @@ def main():
 
         else:
             # არასწორი არჩევანის შეტყობინება
-            print("Invalid choice. Please enter a number between 1 and 6.")
+            print("Invalid choice. Please enter a number between 1 and 7.")
 
 
 main()
