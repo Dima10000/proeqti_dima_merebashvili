@@ -1,5 +1,5 @@
 import json
-import math
+import os
 
 # დახმარების ფუნქციები ოპერაციებისათვის
 def add(a, b):
@@ -52,6 +52,9 @@ def load_from_file(filename):
     with open(filename, 'r') as file:
         return json.load(file)  # ჩაწერილი მონაცემების გადმოტანა ფაილიდან
 
+def clear_history(filename):
+    if os.path.exists(filename):  # ამოწმებს თუ არსებობს ფაილი
+        os.remove(filename)  # შლის ფაილს
 # ვალიდაციის შემოწმება
 def validate_input(prompt, is_float=False):
     while True:
@@ -71,7 +74,8 @@ while True:
     print("2. Perform Calculation with Two Numbers ")  # ორი რიცხვის ოპერაციები
     print("3. View History")  # ისტორიის ნახვა
     print("4. Clear Result")  # შედეგის გაწმენდა
-    print("5. Exit")  # გამოსვლა
+    print("5. Clear History")
+    print("6. Exit")  # გამოსვლა
 
     choice = input("Choose an option: ").strip()  # მომხმარებლის არჩევანი
 
@@ -163,7 +167,11 @@ while True:
         result = 0  # 
         print("Result cleared. Reset to 0.")  # შეტყობინება
 
-    elif choice == "5":  # გამოსვლა
+    elif choice == "5":
+        clear_history(history_file)  # შლის მთლიან მეხსიერებას
+        print("History cleared.")
+
+    elif choice == "6":  # გამოსვლა
         print("Exiting the calculator. Goodbye!")  # გამოსვლა
         break
 
