@@ -24,6 +24,12 @@ def floor_divide(a, b):
 def exponentiate(a, b):
     return a ** b  # Exponentiation 
 
+def calculate_root(a, n):#find root
+    if n <= 0:
+        print("Root degree must be greater than 0.")
+        return None
+    return a ** (1 / n)
+
 def calculate_root(a, n):
     if a < 0 and n % 2 == 0:
         print("Cannot calculate an even root of a negative number.")  # ნეგატიური რიცხვის  ფესვის გამოთვლა არ შეიძლება
@@ -77,6 +83,7 @@ while True:
         print("4. Divide (/)")  # გაყოფა
         print("5. Floor Division (//)")  # 0.1// გაყოფა
         print("6. Exponentiate (**)")  # ახარისხება
+        print("7. find root(**1/n)") #ფესვის პოვნა
         operation = validate_input("Choose an operation: ")  # მომხმარებელს სთხოვს, აირჩიოს ოპერაცია
 
         operand = input("Enter a number or type 'result' to use the current result: ").strip().lower()  # operand-ის შეყვანა
@@ -98,6 +105,8 @@ while True:
                 result = floor_divide(result, operand)
             elif operation == 6:
                 result = exponentiate(result, operand)
+            elif operation == 7:
+                result = calculate_root(result, operand)
             else:
                 print("Invalid operation selected.")  # არასწორი ოპერაცია
                 continue
@@ -110,7 +119,7 @@ while True:
     elif choice == "2":  # ორი რიცხვის ოპერაციები
         print("\n--- Operations with Two Numbers ---")
         num1 = validate_input("Enter the first number: ", is_float=True)  # პირველი რიცხვის შეყვანა
-        print("Supported operations: +, -, *, /, //, **")  # შესაძლო ოპერაციები
+        print("Supported operations: +, -, *, /, //, **,**1/n")  # შესაძლო ოპერაციები
         operator = input("Enter the operator: ").strip()  # ოპერატორის შეყვანა
         num2 = validate_input("Enter the second number: ", is_float=True)  # მეორე რიცხვის შეყვანა
 
@@ -127,6 +136,8 @@ while True:
                 result = floor_divide(num1, num2)
             elif operator == "**":
                 result = exponentiate(num1, num2)
+            elif operator == "**1/n":
+                result = calculate_root(num1, num2)
             else:
                 print("Invalid operator.")  # არასწორი ოპერატორი
                 continue
