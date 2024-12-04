@@ -42,14 +42,14 @@ def guess_the_number():
     while attempts < max_attempts:
         user_input = input("Enter your guess: ")  # მომხმარებელს სთხოვს, შეიტანოს თავის ვარაუდი
 
-        if user_input.lower() == 'exit':  # თუ მომხმარებელი აკრავს 'exit', თამაში წყდება
+        if user_input.lower() == 'exit':  # თუ მომხმარებელი დაწერს 'exit', თამაში წყდება
             print("Thanks for playing! Goodbye!")
             break
 
         try:
-            guess = int(user_input)  # მომხმარებლის შეყვანა ციფრად
+            guess = int(user_input)  # მომხმარებლის ვარაუდი ციფრად
         except ValueError:
-            print("Please enter a valid number.")  # არასწორი შეყვანა
+            print("Please enter a valid number.")  # არასწორი პასუხი
             continue
 
         attempts += 1  # მცდელობების რაოდენობის გაზრდა
@@ -62,6 +62,6 @@ def guess_the_number():
             print(f"Congratulations! You guessed the number in {attempts} attempts.")  # სწორი პასუხი
             break
     else:
-        print(f"Sorry, you've used all {max_attempts} attempts. The number was {random_number}. Better luck next time!")  # თუ მცდელობები ამოიწურა, ეუბნებიან მომხმარებელს
+        print(f"Sorry, you've used all {max_attempts} attempts. The number was {random_number}. Better luck next time!")  # თუ მცდელობების რაოდენება ამოიწურა,რომ აცნობოს მომხმარებელს
 
 guess_the_number()  # თამაშის დაწყება
