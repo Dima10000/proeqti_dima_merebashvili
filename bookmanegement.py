@@ -43,6 +43,17 @@ class BookManager:
             print(f"Book '{title}' by {author} has been successfully added!")
         else:
             print(f"Book '{title}' by {author} already exists in the collection.")
+    
+    def delete_book(self, title, author):
+        # ეძებს და შლის წიგნს სათაურისა და ავტორის მიხედვით
+        for book in self.books:
+            if book.title.lower() == title.lower() and book.author.lower() == author.lower():
+                self.books.remove(book)
+                self.save_books()  # ცვლილებების შენახვა
+                print(f"Book '{title}' by {author} has been successfully deleted!")
+                return
+        print(f"Book '{title}' by {author} was not found in the collection.")
+
 
     def view_books(self):
         # გამოაქვს მთლიანი ინფორმაცია
@@ -101,6 +112,7 @@ def main():
         # მენიუს გამოტანა ეკრანზე
         print("\nMenu:")
         print("1. Add a Book")  # წიგნის დამატება
+        print("2. dalete a Book")  # წიგნის დამატება
         print("2. View All Books")  # ყველა წიგნის ნახვა
         print("3. Search Book by Title")  # ძიება სათაურით
         print("4. Search Book by Author")  # ძიება ავტორით
@@ -129,10 +141,17 @@ def main():
             manager.add_book(title, author, year)
 
         elif choice == '2':
+            # წაშლის ფუნქციის გამოძახება
+            title = validate_non_empty(input("Enter the book title to delete: "))
+            author = validate_non_empty(input("Enter the author's name: "))
+            if title and author:
+                manager.delete_book(title, author)
+
+        elif choice == '3':
             # მთლიანი ინფორმაციის გამოტანა
             manager.view_books()
 
-        elif choice == '3':
+        elif choice == '4':
             # ძიება სათაურის მიხედვით
             search_title = input("Enter the book title to search for: ")
             results = manager.search_by_title(search_title)
@@ -143,7 +162,7 @@ def main():
             else:
                 print(f"No books found with the title '{search_title}'.")
 
-        elif choice == '4':
+        elif choice == '5':
             # ძიება ავტორის მიხედვით
             search_author = input("Enter the author's name to search for: ")
             results = manager.search_by_author(search_author)
@@ -154,7 +173,7 @@ def main():
             else:
                 print(f"No books found by author '{search_author}'.")
 
-        elif choice == '5':
+        elif choice == '6':
             # ძიება წლის მიხედვით
             search_year = input("Enter the year to search for: ")
             results = manager.search_by_year(search_year)
@@ -165,7 +184,7 @@ def main():
             else:
                 print(f"No books found published in {search_year}.")
 
-        elif choice == '6':
+        elif choice == '7':
             # პროგრამის დასრულება
             print("Exiting the program. Goodbye!")
             break
@@ -174,3 +193,5 @@ def main():
             # არასწორი არჩევანის შეტყობინება
             print("Invalid choice. Please enter a number between 1 and 6.")
 
+
+main()
